@@ -1,0 +1,39 @@
+* {
+    margin: 0
+}
+
+.app {  
+    background-color: #fafafa;
+}
+
+.app_header {
+    background-color: #ffff;
+    padding: 1rem;
+    object-fit: contain;
+    border-bottom: 0.02rem solid lightgray;
+    display: flex;
+    justify-content: space-between;
+}
+
+.app_headerImage {
+    width: 6rem;
+    height: 2rem;
+}
+
+.sign_up_box {
+    background-color: #ebebeb;
+    border-radius: 0.3rem;
+    border: 0.01rem solid lightgray;
+    margin: 0.2rem;
+}
+
+.app_signup {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+}
+
+.app_signup input {
+    padding-left: 0.2rem;
+    margin: 0.5rem;
+}
