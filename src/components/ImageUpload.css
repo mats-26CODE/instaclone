@@ -1,0 +1,13 @@
+.image_upload_box {
+    padding: 1rem;
+}
+
+.image_upload_box input {
+    margin: 0.5rem;
+    width: 100%;
+}
+
+.image_upload_box button {
+    margin: 0.5rem;
+    border: 0.02rem solid lightgray;
+}

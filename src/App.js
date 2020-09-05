@@ -9,6 +9,7 @@ import { Button, Input } from '@material-ui/core';
 
 //component import
 import Post from './components/Post';
+import ImageUpload from './components/ImageUpload';
 
 //file import
 import InstaLogo from './assets/logo/instalogo.png';
@@ -45,6 +46,7 @@ function App() {
   const [ posts, setPosts ] = useState([]);
   const [ openModal, setOpenModal ] = useState(false);
   const [ openSignInModal, setOpenSignInModal ] = useState(false);
+  const [ openAddPostModal, setOpenAddPostModal ] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [email, setEmail] = useState('');
@@ -72,7 +74,7 @@ function App() {
   
   useEffect(() => {
     //code comes here
-    db.collection('posts').onSnapshot(snapshot => {
+    db.collection('posts').orderBy('timestamp', 'desc').onSnapshot(snapshot => {
       // every single time a database changes (post is added), this code fires up
       setPosts(snapshot.docs.map(doc => ({
         id: doc.id,
@@ -170,6 +172,20 @@ function App() {
           </div>
         </div>
       </Modal>
+
+      {/* Add post modal */}
+      <Modal
+        open={openAddPostModal}
+        onClose={() => setOpenAddPostModal(false)}
+      >
+        <div style={modalStyle} className={classes.paper}>
+          {user?.displayName ? (
+            <ImageUpload username={user.displayName} setOpenAddPostModal={setOpenAddPostModal} />
+          ): (
+            <h5>Your not logged in</h5>
+          )}
+        </div>
+      </Modal>
       
       {/*Header*/}
       <div className={"app_header"}>
@@ -181,19 +197,26 @@ function App() {
 
         {user ? (
           <div className={"sign_up_box"}>
+            <Button onClick={() => setOpenAddPostModal(true)}>
+              ADD POST
+            </Button>
+            
             <Button onClick={() => auth.signOut()}>
               Logout
             </Button>
           </div>
         ): (
-          <div className={"sign_up_box"}>
-            <Button onClick={() => setOpenSignInModal(true)}>
-              Sign in 
-            </Button>
+          <div className={"user_box"}>
+            <h5>Login to upload</h5> 
+            <div className={"sign_up_box"}>
+              <Button onClick={() => setOpenSignInModal(true)}>
+                Sign in 
+              </Button>
 
-            <Button onClick={() => setOpenModal(true)}>
-              Sign up
-            </Button>
+              <Button onClick={() => setOpenModal(true)}>
+                Sign up
+              </Button>
+            </div>
           </div>
         )}
       </div>
